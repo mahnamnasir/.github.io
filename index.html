@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mahnam Nasir — AI Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0d0f0e;
+    --bg2: #131614;
+    --bg3: #1a1e1c;
+    --border: rgba(255,255,255,0.08);
+    --green: #3ddc84;
+    --green-dim: rgba(61,220,132,0.12);
+    --green-mid: rgba(61,220,132,0.25);
+    --text: #e8ede9;
+    --muted: #7a8a7d;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'Inter', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--green); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 2rem;
+    height: 56px;
+    background: rgba(13,15,14,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-name {
+    font-family: var(--mono);
+    font-size: 14px;
+    color: var(--green);
+    letter-spacing: 0.01em;
+  }
+  .nav-links { display: flex; gap: 1.5rem; }
+  .nav-links a {
+    font-size: 13px;
+    color: var(--muted);
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); text-decoration: none; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 6rem 2rem 4rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .hero-inner { width: 100%; }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--green);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 24px; height: 1px;
+    background: var(--green);
+  }
+
+  h1 {
+    font-family: var(--mono);
+    font-size: clamp(2rem, 6vw, 3.75rem);
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 1.25rem;
+  }
+  h1 span { color: var(--green); }
+
+  .hero-desc {
+    font-size: 16px;
+    color: var(--muted);
+    max-width: 520px;
+    margin-bottom: 2.5rem;
+    line-height: 1.8;
+  }
+
+  /* TERMINAL — the signature element */
+  .terminal {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    max-width: 580px;
+    margin-bottom: 2.5rem;
+  }
+  .terminal-bar {
+    background: var(--bg3);
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+  .tb { width: 10px; height: 10px; border-radius: 50%; }
+  .tb-r { background: #ff5f57; }
+  .tb-y { background: #febc2e; }
+  .tb-g { background: #28c840; }
+  .terminal-body {
+    padding: 1.25rem 1.5rem;
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.9;
+  }
+  .t-prompt { color: var(--green); }
+  .t-cmd { color: var(--text); }
+  .t-out { color: var(--muted); }
+  .t-cursor {
+    display: inline-block;
+    width: 8px; height: 14px;
+    background: var(--green);
+    vertical-align: middle;
+    animation: blink 1.1s step-end infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 22px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: var(--mono);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none !important;
+  }
+  .btn-primary {
+    background: var(--green);
+    color: #0d0f0e;
+    font-weight: 500;
+    border: 1px solid var(--green);
+  }
+  .btn-primary:hover { background: #56e898; }
+  .btn-ghost {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-ghost:hover { border-color: var(--green); color: var(--green); }
+
+  /* SECTIONS */
+  section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--green);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+  h2 {
+    font-family: var(--mono);
+    font-size: clamp(1.3rem, 3vw, 1.9rem);
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 2.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+  .project-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.5rem;
+    transition: border-color 0.2s, background 0.2s;
+    cursor: default;
+  }
+  .project-card:hover {
+    border-color: rgba(61,220,132,0.3);
+    background: var(--bg3);
+  }
+  .project-tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 99px;
+    background: var(--green-dim);
+    color: var(--green);
+    border: 1px solid var(--green-mid);
+    margin-bottom: 0.85rem;
+  }
+  .project-card h3 {
+    font-family: var(--mono);
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 0.6rem;
+  }
+  .project-card p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+  .project-links { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  .project-link {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--green);
+    display: flex; align-items: center; gap: 4px;
+  }
+  .project-link svg { width: 12px; height: 12px; }
+  .project-media {
+    margin-top: 1rem;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--bg3);
+    aspect-ratio: 16/9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .media-placeholder {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    text-align: center;
+    padding: 1rem;
+  }
+  .media-placeholder span { display: block; font-size: 22px; margin-bottom: 6px; opacity: 0.4; }
+
+  /* EXPERIENCE */
+  .exp-list { display: flex; flex-direction: column; gap: 0; }
+  .exp-item {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 1.5rem;
+    padding: 1.75rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .exp-item:first-child { border-top: 1px solid var(--border); }
+  .exp-date {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    padding-top: 3px;
+  }
+  .exp-right h3 {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+  .exp-company {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--green);
+    margin-bottom: 0.75rem;
+  }
+  .exp-bullets { list-style: none; padding: 0; }
+  .exp-bullets li {
+    font-size: 13px;
+    color: var(--muted);
+    padding-left: 1rem;
+    position: relative;
+    margin-bottom: 6px;
+    line-height: 1.65;
+  }
+  .exp-bullets li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--green);
+    font-size: 11px;
+    top: 2px;
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  .skill-group {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem;
+  }
+  .skill-group-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--green);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .skill-tag {
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    background: var(--bg3);
+    color: var(--muted);
+    border: 1px solid var(--border);
+  }
+
+  /* CONTACT */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  .contact-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    display: flex; flex-direction: column; gap: 6px;
+    transition: border-color 0.2s;
+    text-decoration: none !important;
+  }
+  .contact-card:hover { border-color: rgba(61,220,132,0.3); }
+  .contact-card-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .contact-card-value {
+    font-size: 14px;
+    color: var(--green);
+    font-family: var(--mono);
+    word-break: break-all;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  @media (max-width: 600px) {
+    .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    .nav-links { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .t-cursor { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-name">mahnam.nasir</span>
+  <div class="nav-links">
+    <a href="#projects">Projects</a>
+    <a href="#experience">Experience</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">AI Engineer · Rawalpindi, Pakistan</div>
+    <h1>Building<br><span>AI systems</span><br>that ship.</h1>
+    <p class="hero-desc">I design and build LLM-powered backends, voice AI pipelines, and generative AI applications. Currently pursuing an MSc in AI at NUST EME.</p>
+
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="tb tb-r"></div>
+        <div class="tb tb-y"></div>
+        <div class="tb tb-g"></div>
+      </div>
+      <div class="terminal-body" id="terminal-body">
+        <div><span class="t-prompt">~/portfolio $</span> <span class="t-cmd" id="typed-cmd"></span><span class="t-cursor" id="cursor"></span></div>
+        <div id="terminal-output"></div>
+      </div>
+    </div>
+
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">View projects</a>
+      <a href="mailto:mahnamnasir001@gmail.com" class="btn btn-ghost">Get in touch</a>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">Work</div>
+  <h2>Projects</h2>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <span class="project-tag">LLM · RAG · Agents</span>
+      <h3>Mini Qalb</h3>
+      <p>LLM-driven workflow system with prompt orchestration, fine-tuning of open-source models, and structured response generation pipelines.</p>
+      <div class="project-links">
+        <a href="https://github.com/mahnamnasir" class="project-link" target="_blank">
+          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          GitHub
+        </a>
+        <a href="#" class="project-link">▶ Demo video</a>
+      </div>
+      <div class="project-media">
+        <div class="media-placeholder"><span>▶</span>Add your demo video link here<br><small>YouTube embed or screen recording</small></div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <span class="project-tag">Voice AI · STT · Generative</span>
+      <h3>DreamVisualizer</h3>
+      <p>End-to-end voice-to-image AI pipeline. Captures speech input, processes it through an LLM prompt pipeline, and generates images via generative models.</p>
+      <div class="project-links">
+        <a href="https://github.com/mahnamnasir" class="project-link" target="_blank">
+          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          GitHub
+        </a>
+        <a href="#" class="project-link">▶ Demo video</a>
+      </div>
+      <div class="project-media">
+        <div class="media-placeholder"><span>▶</span>Add your demo video link here<br><small>YouTube embed or screen recording</small></div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <span class="project-tag">CV · Face Recognition · OpenCV</span>
+      <h3>AI Photobooth</h3>
+      <p>Real-time computer vision application using OpenCV for face detection and recognition, integrated with generative AI for dynamic photobooth experiences at live events.</p>
+      <div class="project-links">
+        <a href="https://github.com/mahnamnasir" class="project-link" target="_blank">
+          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          GitHub
+        </a>
+        <a href="#" class="project-link">📸 Photos</a>
+      </div>
+      <div class="project-media">
+        <div class="media-placeholder"><span>📷</span>Add event photos or demo clip here</div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <span class="project-tag">AI Agents · CRM · Python</span>
+      <h3>SchoolCRM</h3>
+      <p>Full-stack CRM portal for a 500-student campus — AI chatbot with structured prompt pipeline, admission management, quizzes, and admin dashboard. Built and deployed solo.</p>
+      <div class="project-links">
+        <a href="https://github.com/mahnamnasir" class="project-link" target="_blank">
+          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          GitHub
+        </a>
+        <a href="#" class="project-link">▶ Demo</a>
+      </div>
+      <div class="project-media">
+        <div class="media-placeholder"><span>▶</span>Add walkthrough video or screenshots</div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <span class="project-tag">Automation · AI workflows</span>
+      <h3>Self-Operating AI Framework</h3>
+      <p>UI-based AI automation system that executes tasks through structured workflows and intelligent decision-making — an early exploration of agent-based automation.</p>
+      <div class="project-links">
+        <a href="https://github.com/mahnamnasir" class="project-link" target="_blank">
+          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">History</div>
+  <h2>Experience</h2>
+  <div class="exp-list">
+
+    <div class="exp-item">
+      <div class="exp-date">Sep 2024 – Mar 2026</div>
+      <div class="exp-right">
+        <h3>AI software developer — school technology</h3>
+        <div class="exp-company">The City School, Rawalpindi</div>
+        <ul class="exp-bullets">
+          <li>Built a full-stack AI agent-powered CRM with an LLM chatbot, admission tracking, and admin dashboard — deployed to a 500-student campus.</li>
+          <li>Designed a prompt pipeline with context injection to ensure consistent, hallucination-free responses across 10+ query categories.</li>
+          <li>Delivered as a kiosk-deployable Python app with full documentation so non-technical staff could maintain it independently.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-date">Aug 2023 – Sep 2024</div>
+      <div class="exp-right">
+        <h3>Junior software developer</h3>
+        <div class="exp-company">ZaqFilms</div>
+        <ul class="exp-bullets">
+          <li>Built SmartSpin 360, a Python video processing pipeline that replaced a manual workflow and tripled throughput.</li>
+          <li>Shipped a real-time AI photobooth using OpenCV for face detection + generative AI, deployed across multiple live events.</li>
+          <li>Integrated a speech-to-text voice AI layer into DreamVisualizer, building an end-to-end voice-to-image LLM prompt pipeline.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-date">Jun 2023 – Aug 2023</div>
+      <div class="exp-right">
+        <h3>Security and AI research intern</h3>
+        <div class="exp-company">NCCS and PAF</div>
+        <ul class="exp-bullets">
+          <li>Conducted video forensics analysis at NCCS, applying computer vision to security datasets.</li>
+          <li>Received cybersecurity principles training at PAF — applied to building secure AI pipeline architectures.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Stack</div>
+  <h2>Skills</h2>
+  <div class="skills-grid">
+    <div class="skill-group">
+      <div class="skill-group-label">AI / LLMs</div>
+      <div class="skill-tags">
+        <span class="skill-tag">LLM integration</span>
+        <span class="skill-tag">prompt engineering</span>
+        <span class="skill-tag">RAG systems</span>
+        <span class="skill-tag">AI agents</span>
+        <span class="skill-tag">fine-tuning</span>
+        <span class="skill-tag">open-source models</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-label">Voice AI</div>
+      <div class="skill-tags">
+        <span class="skill-tag">speech-to-text</span>
+        <span class="skill-tag">voice pipelines</span>
+        <span class="skill-tag">audio processing</span>
+        <span class="skill-tag">generative AI</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-label">Backend</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">Flask</span>
+        <span class="skill-tag">RESTful APIs</span>
+        <span class="skill-tag">SQLite</span>
+        <span class="skill-tag">Gradio</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-label">Computer vision</div>
+      <div class="skill-tags">
+        <span class="skill-tag">OpenCV</span>
+        <span class="skill-tag">face detection</span>
+        <span class="skill-tag">video forensics</span>
+        <span class="skill-tag">ML fundamentals</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-label">Tools</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Git</span>
+        <span class="skill-tag">GitHub</span>
+        <span class="skill-tag">VS Code</span>
+        <span class="skill-tag">Linux</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-label">Education</div>
+      <div class="skill-tags">
+        <span class="skill-tag">MSc AI — NUST EME</span>
+        <span class="skill-tag">BSc Cybersecurity — Air University</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Get in touch</div>
+  <h2>Contact</h2>
+  <div class="contact-grid">
+    <a href="mailto:mahnamnasir001@gmail.com" class="contact-card">
+      <span class="contact-card-label">Email</span>
+      <span class="contact-card-value">mahnamnasir001@gmail.com</span>
+    </a>
+    <a href="https://linkedin.com/in/mahnam-nasir" target="_blank" class="contact-card">
+      <span class="contact-card-label">LinkedIn</span>
+      <span class="contact-card-value">linkedin.com/in/mahnam-nasir</span>
+    </a>
+    <a href="https://github.com/mahnamnasir" target="_blank" class="contact-card">
+      <span class="contact-card-label">GitHub</span>
+      <span class="contact-card-value">github.com/mahnamnasir</span>
+    </a>
+    <a href="tel:+923303144004" class="contact-card">
+      <span class="contact-card-label">Phone</span>
+      <span class="contact-card-value">+92 330 314 4004</span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <span>Mahnam Nasir · AI Engineer · Rawalpindi, Pakistan</span>
+</footer>
+
+<script>
+  const lines = [
+    { cmd: 'python run_pipeline.py --mode voice-to-image', delay: 60 },
+  ];
+  const outputs = [
+    '> loading whisper STT model... done',
+    '> initializing LLM prompt engine... done',
+    '> connecting generative model API... done',
+    '> pipeline ready. awaiting voice input_',
+  ];
+
+  const cmdEl = document.getElementById('typed-cmd');
+  const outEl = document.getElementById('terminal-output');
+  const cursor = document.getElementById('cursor');
+
+  function typeCmd(text, cb) {
+    let i = 0;
+    cursor.style.display = 'inline-block';
+    const iv = setInterval(() => {
+      cmdEl.textContent += text[i++];
+      if (i >= text.length) { clearInterval(iv); setTimeout(cb, 400); }
+    }, 45);
+  }
+
+  function showOutputs(lines, i) {
+    if (i >= lines.length) return;
+    cursor.style.display = 'none';
+    setTimeout(() => {
+      const d = document.createElement('div');
+      d.className = 't-out';
+      d.textContent = lines[i];
+      outEl.appendChild(d);
+      showOutputs(lines, i + 1);
+    }, 320);
+  }
+
+  setTimeout(() => {
+    typeCmd(lines[0].cmd, () => showOutputs(outputs, 0));
+  }, 800);
+</script>
+</body>
+</html>
